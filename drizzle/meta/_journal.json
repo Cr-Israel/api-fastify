@@ -15,6 +15,41 @@
       "when": 1755548907364,
       "tag": "0001_watery_hammerhead",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1755870795753,
+      "tag": "0002_natural_jasper_sitwell",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1755870916710,
+      "tag": "0003_silky_prism",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1755872287983,
+      "tag": "0004_thin_talisman",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1755874164561,
+      "tag": "0005_rainy_stick",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1755887670447,
+      "tag": "0006_violet_morg",
+      "breakpoints": true
     }
   ]
 }

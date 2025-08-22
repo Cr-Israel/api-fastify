@@ -1,8 +1,8 @@
 import z from "zod"
-import { ilike } from "drizzle-orm"
+import { ilike, asc, SQL, and, eq, count } from "drizzle-orm"
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
 import { db } from "../database/client.ts"
-import { courses } from "../database/schema.ts"
+import { courses, enrollments } from "../database/schema.ts"
 
 export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
   server.get('/courses', {
@@ -11,29 +11,46 @@ export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
       summary: 'Create all courses',
       querystring: z.object({
         search: z.string().optional(),
+        orderBy: z.enum(['id', 'title']).optional().default('id'),
+        page: z.coerce.number().optional().default(1),
       }),
       response: {
         200: z.object({
           courses: z.array(z.object({
             id: z.string(),
             title: z.string(),
-          }))
+            enrollments: z.number(),
+          })),
+          total: z.number(),
         })
       }
     }
   }, async (request, reply) => {
-    const { search } = request.query
+    const { search, orderBy, page } = request.query
 
-    const result = await db
-      .select({
-        id: courses.id,
-        title: courses.title,
-      })
-      .from(courses)
-      .where(
-        search ? ilike(courses.title, search) : undefined
-      )
+    const conditions: SQL[] = [];
 
-    return reply.send({ courses: result })
+    if(search) {
+      conditions.push(ilike(courses.title, `%${search}%`))
+    }
+
+    const [result, total] = await Promise.all([
+      db
+        .select({
+          id: courses.id,
+          title: courses.title,
+          enrollments: count(enrollments.id),
+        })
+        .from(courses)
+        .where(and(...conditions))
+        .limit(10)
+        .offset((page - 1) * 2)
+        .orderBy(asc(courses[orderBy]))
+        .leftJoin(enrollments, eq(enrollments.courseId, courses.id))
+        .groupBy(courses.id),
+      db.$count(courses, and(...conditions))
+    ])
+
+    return reply.send({ courses: result, total })
   })
 }
