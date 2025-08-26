@@ -1,8 +1,10 @@
 POST http://localhost:3333/courses
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNTVmYWFhNi01YWMzLTQxNGItYWJjYi1iZTdiM2UwNzFmZjMiLCJyb2xlIjoibWFuYWdlciIsImlhdCI6MTc1NjIxOTM2OH0.rxvlBvJuZaWeW8LO4_o4bOcAsj9FkOdY3_V2W_Hsezw
+
 
 {
-  "title": "Curso de Docker 3"
+  "title": "Curso de Delphi"
 }
 
 ###
@@ -14,4 +16,15 @@ GET http://localhost:3333/courses?orderBy=title
 
 ###
 
-GET http://localhost:3333/courses/443ede8a-c7e4-4273-b463-7f292c6887bb
+GET http://localhost:3333/courses/8ce964dd-01c0-429c-8dee-732a6590a696
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkNTVmYWFhNi01YWMzLTQxNGItYWJjYi1iZTdiM2UwNzFmZjMiLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTc1NjIxNzY0OH0.VGJbW0l9VaLzQ5i8Kvt256_CfRNY4tlppCknbbzDnhk
+
+###
+
+POST http://localhost:3333/sessions
+Content-Type: application/json
+
+{
+  "email": "Valentina_Xavier@hotmail.com",
+  "password": "123456"
+}

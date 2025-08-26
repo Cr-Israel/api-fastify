@@ -6,6 +6,7 @@ import { validatorCompiler, serializerCompiler, type ZodTypeProvider, jsonSchema
 import { getCoursesRoute } from './routes/get-courses.ts'
 import { createCourseRoute } from './routes/create-course.ts'
 import { getCourseByIdRoute } from './routes/get-course-by-id.ts'
+import { loginRoute } from './routes/login.ts'
 
 const app = fastify({
   logger: {
@@ -41,5 +42,6 @@ app.setSerializerCompiler(serializerCompiler)
 app.register(createCourseRoute)
 app.register(getCoursesRoute)
 app.register(getCourseByIdRoute)
+app.register(loginRoute)
 
 export { app }
