@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for api-challenge/src/routes/create-course.ts</title>
+    <title>Code coverage report for api-fastify/src/database/schema.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">api-challenge/src/routes</a> create-course.ts</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">api-fastify/src/database</a> schema.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">91.66% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
@@ -90,71 +90,68 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span></td><td class="text"><pre class="prettyprint lang-js">import z from "zod"
-import { db } from "../database/client.ts"
-import { courses } from "../database/schema.ts"
-import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod"
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { uniqueIndex } from "drizzle-orm/pg-core";
+import { timestamp } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, pgEnum } from "drizzle-orm/pg-core";
 &nbsp;
-export const createCourseRoute: FastifyPluginAsyncZod = async (server) =&gt; {
-  server.post('/courses', {
-  schema: {
-    tags: ['courses'],
-    summary: 'Create a course',
-    description: 'This route receive a title and create a course in database',
-    body: z.object({
-      title: z.string().min(5, 'Título precisa ter pelo menos 5 caracteres.'),
-    }),
-    response: {
-      201: z.object({courseId: z.uuid()}).describe('Course created successfully!')
-    }
-  },
-}, async (request, reply) =&gt; {
-  const { title } = request.body
+export const userRole = pgEnum('user_roles', ['student', 'manager']);
 &nbsp;
-  const result = await db
-    .insert(courses)
-    .values({ title: title })
-    .returning()
-&nbsp;
-  return reply.status(201).send({ courseId: result[0].id })
+export const users = pgTable('users', {
+  id: uuid().primaryKey().defaultRandom(),
+  name: text().notNull(),
+  email: text().notNull().unique(),
+  password: text().notNull(),
+  role: userRole().notNull().default('student'),
 })
-}</pre></td></tr></table></pre>
+&nbsp;
+export const courses = pgTable('courses', {
+  id: uuid().primaryKey().defaultRandom(),
+  title: text().notNull().unique(),
+  description: text(),
+})
+&nbsp;
+export const enrollments = pgTable('enrollments', {
+  id: uuid().primaryKey().defaultRandom(),
+  userId: uuid().notNull().references(() =&gt; users.id),
+  courseId: uuid().notNull().references(() =&gt; courses.id),
+  createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
+}, table =&gt; [
+<span class="cstat-no" title="statement not covered" >  uniqueIndex().on(table.userId, table.courseId),</span>
+<span class="cstat-no" title="statement not covered" >])</span></pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-25T13:30:23.054Z
+                at 2025-08-28T17:20:09.060Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

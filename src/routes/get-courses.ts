@@ -11,7 +11,7 @@ export const getCoursesRoute: FastifyPluginAsyncZod = async (server) => {
   server.get('/courses', {
     preHandler: [
       checkRequestJWT,
-      checkUserRole
+      checkUserRole('manager'),
     ],
     schema: {
       tags: ['courses'],
