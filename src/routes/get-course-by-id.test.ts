@@ -24,3 +24,15 @@ test('Get a course', async () => {
     }
   })
 })
+
+test('Return 404 for non existing course.', async () => {
+  await app.ready()
+
+  const { token } = await makeAuthenticatedUser('student')
+
+  const response = await request(app.server)
+  .get(`/courses/b36b17a3-7167-4c8b-8b31-e1d6ae558e79`)
+  .set('Authorization', token)
+
+  expect(response.status).toEqual(404)
+})
