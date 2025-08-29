@@ -7,9 +7,6 @@ COPY . ./
 # Instala todas as dependência do package-lock.json sem mudar nada.
 RUN npm ci --only=production
 
-# Roda migrations no momento do build
-RUN npm run db:migrate
-
 EXPOSE 3333
 
-CMD npm run db:migrate && node src/server.ts
+CMD ["node", "src/server.ts",]
