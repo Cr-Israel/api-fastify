@@ -5,7 +5,10 @@ WORKDIR /app
 COPY . ./
 
 # Instala todas as dependência do package-lock.json sem mudar nada.
-RUN npm ci --only=production
+RUN npm ci
+
+# Roda as migrations no build
+RUN npm run db:migrate
 
 EXPOSE 3333
 
