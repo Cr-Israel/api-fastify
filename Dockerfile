@@ -12,4 +12,4 @@ RUN npm run db:migrate
 
 EXPOSE 3333
 
-CMD ["node", "src/server.ts"]
+CMD npm run db:migrate && node src/server.ts
